@@ -1,0 +1,11 @@
+#!/bin/sh
+cd /app;
+
+git pull --quiet origin master;
+
+git submodule --quiet foreach git pull origin master;
+
+if ! (git diff --quiet) then
+  git commit --all -m "Update Phabricator"
+  git push origin master
+fi
