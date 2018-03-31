@@ -3,7 +3,7 @@ cd /app;
 
 git pull --quiet origin master;
 
-git submodule --quiet foreach git pull origin master;
+git submodule --quiet foreach git pull --quiet origin master;
 
 if ! (git diff --quiet) then
   git commit --all -m "Update Phabricator"
