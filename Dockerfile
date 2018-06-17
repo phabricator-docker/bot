@@ -3,12 +3,13 @@ FROM debian:stretch
 RUN apt-get update && apt-get install -y \
 		cron \
 		git \
+		ca-certificates \
 		ssh \
 		--no-install-recommends && rm -r /var/lib/apt/lists/*
 
 WORKDIR /app
 
-RUN git clone git://github.com/phabricator-docker/phabricator.git /app; \
+RUN git clone https://github.com/phabricator-docker/phabricator.git /app; \
 	git submodule update --init --recursive;
 
 RUN mkdir ~/.ssh; \
