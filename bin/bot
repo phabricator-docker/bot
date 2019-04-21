@@ -1,11 +1,16 @@
 #!/bin/sh
 cd /app;
 
-git pull --quiet origin master;
+for branch in "master" "stable"
+do
+  git checkout --quiet $branch;
+  git pull --quiet origin $branch;
 
-git submodule --quiet foreach git pull --quiet origin master;
+  git submodule --quiet foreach git checkout --quiet $branch;
+  git submodule --quiet foreach git pull --quiet origin $branch;
 
-if ! (git diff --quiet) then
-  git commit --all -m "Update Phabricator"
-  git push origin master
-fi
+  if ! (git diff --quiet) then
+    git commit --all -m "Update Phabricator"
+    git push origin $branch
+  fi
+done
